@@ -1,0 +1,41 @@
+
+:root{
+  --accent-1: #8b1e3f; /* deep wine */
+  --accent-2: #0f6160; /* teal */
+  --bg: linear-gradient(180deg,#0f1720, #0b1a1a); /* dark slate gradient (not pure black) */
+  --panel: rgba(255,255,255,0.03);
+  --muted: rgba(255,255,255,0.65);
+  --glass: rgba(255,255,255,0.04);
+  /* Quick actions purple theme */
+  --qa-accent-1: #4b197e; /* dark purple */
+  --qa-accent-2: #6b2fa3; /* medium purple */
+  --qa-label: #d8ccff; /* light purple label */
+}
+body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial;color:#e6eef0}
+.page{padding:20px}
+
+/* macOS like dark dashboard cards (using theme colors, not black) */
+.card{background:var(--panel);backdrop-filter: blur(6px);border-radius:12px;padding:16px;box-shadow:0 8px 30px rgba(3,6,8,0.6);border:1px solid rgba(255,255,255,0.03)}
+
+/* Dashboard grid */
+.dashboard { display:flex; gap:20px; align-items:flex-start }
+.dashboard .left { flex:1 }
+.dashboard .right { width:420px }
+.grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-bottom:18px }
+
+.asset-card { background: linear-gradient(135deg,var(--accent-1), var(--accent-2)); color: #fff; padding:14px; border-radius:10px; box-shadow:0 4px 18px rgba(11,11,11,0.4) }
+.asset-title{font-size:13px;opacity:0.9}
+.asset-amount{font-size:20px;font-weight:700;margin-top:6px}
+
+.chart-card{height:220px}
+
+.transactions{margin-top:18px}
+.tx-item{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid rgba(255,255,255,0.02)}
+.tx-muted{color:var(--muted);font-size:13px}
+
+.card-widget{background:linear-gradient(90deg,var(--accent-2),rgba(11,11,11,0.06));padding:14px;border-radius:12px;color:#fff}
+
+.quick-transfer{background:var(--glass);padding:12px;border-radius:12px}
+
+@media (max-width:1000px){ .grid{grid-template-columns: repeat(2, 1fr)} .dashboard{flex-direction:column} .right{width:100%} }
+
