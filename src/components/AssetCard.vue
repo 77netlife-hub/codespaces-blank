@@ -11,8 +11,12 @@ export default {
   props: { title: String, amount: [Number, String], subtitle: String },
   computed: {
     displayAmount(){
-      if(typeof this.amount === 'number') return new Intl.NumberFormat('en-UG', { style: 'currency', currency: 'UGX' }).format(this.amount)
-      return this.amount
+      let val = this.amount
+      // support receiving a ref-like object accidentally
+      if(val && typeof val === 'object' && 'value' in val) val = val.value
+      if(val === null || val === undefined || val === '') return '—'
+      if(typeof val === 'number') return new Intl.NumberFormat('en-UG', { style: 'currency', currency: 'UGX' }).format(val)
+      return String(val)
     }
   }
 }

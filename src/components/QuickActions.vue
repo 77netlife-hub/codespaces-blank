@@ -17,6 +17,7 @@ export default defineComponent({
   emits: ['select'],
   setup(props, { emit }){
     const actions = [
+      { key: 'scan', label: 'Scan', color: '#2b6cb0' },
       { key: 'airtime', label: 'Airtime', color: '#0f6160' },
       { key: 'data', label: 'Data', color: '#8b1e3f' },
       { key: 'paybill', label: 'Pay Bill', color: '#ffb86b' },

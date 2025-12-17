@@ -1,8 +1,9 @@
 <template>
   <div class="card-widget-root">
     <div class="card-visual">
-      <div class="chip" />
-      <div class="card-number">•••• •••• •••• 4444</div>
+        <div class="chip" />
+        <div class="card-number">{{ showDetails ? formattedCardNumber : '•••• •••• •••• 4444' }}</div>
+        <div v-if="showDetails" class="card-cvv">CVV: {{ cardCvv }}</div>
       <div class="card-row">
         <div>
           <div class="label">Cardholder</div>
@@ -26,17 +27,23 @@
 <script>
 export default {
   name: 'CardWidget',
-  props: { balances: { type: [Number,String], default: 11757636 } },
+  props: { balances: { type: [Number,String], default: 11757636 }, cardNumber: { type: String, default: '1234567812344444' }, cardCvv: { type: String, default: '123' } },
+  data(){ return { showDetails: false } },
   computed: {
     formattedBalance(){
       const v = Number(this.balances) || 0
       return new Intl.NumberFormat('en-UG', { style: 'currency', currency: 'UGX' }).format(v)
+    },
+    formattedCardNumber(){
+      const num = String(this.cardNumber || '').replace(/[^0-9]/g,'')
+      if(num.length !== 16) return this.cardNumber || '---- ---- ---- ----'
+      return num.replace(/(\d{4})(?=\d)/g, '$1 ')
     }
   },
   methods: {
-    viewCard(){ alert('Viewing card details') },
-    topup(){ this.$emit('topup') ; alert('Top up clicked') },
-    withdraw(){ this.$emit('withdraw') ; alert('Withdraw clicked') }
+    viewCard(){ this.showDetails = !this.showDetails },
+    topup(){ this.$emit('topup') },
+    withdraw(){ this.$emit('withdraw') }
   }
 }
 </script>
@@ -46,6 +53,7 @@ export default {
 .card-visual{background:linear-gradient(135deg,#5b21b6,#8b5cf6);border-radius:14px;padding:16px;color:#fff;min-height:140px;display:flex;flex-direction:column;justify-content:space-between}
 .chip{width:48px;height:32px;background:rgba(255,255,255,0.18);border-radius:6px}
 .card-number{letter-spacing:2px;font-weight:600;margin-top:8px}
+.card-cvv{font-size:13px;opacity:0.95;margin-top:6px}
 .card-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:12px}
 .label{font-size:11px;opacity:0.85}
 .value{font-weight:700}
